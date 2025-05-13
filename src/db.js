@@ -20,3 +20,10 @@ export async function getDbInstance() {
 
   return db;
 }
+
+export async function getTodoDb() {
+  const db = await getDbInstance();
+  const todoDb = db.sub("todos");
+  await todoDb.ready();
+  return todoDb;
+}
