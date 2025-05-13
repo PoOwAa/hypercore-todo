@@ -1,5 +1,6 @@
 import RPC from "@hyperswarm/rpc";
 import { getDbInstance } from "./db.js";
+import { v4 as uuid } from "uuid";
 
 async function main() {
   const rpc = new RPC();
@@ -15,8 +16,7 @@ async function main() {
     const todo = req.toString();
     console.log(`✅ Todo added: ${todo}`);
     const db = await getDbInstance();
-    // Use timestamp as a unique key
-    const key = "todo-" + Date.now().toString();
+    const key = uuid();
     await db.put(key, todo);
     return Buffer.from(`Todo added: ${todo}`);
   });
